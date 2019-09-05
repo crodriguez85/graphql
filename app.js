@@ -9,7 +9,7 @@ const me = users[0];
 const typeDefs = gql`
     type Query {
         users: [User]
-        user(id: ID!): User
+        user(id: Int!): User
         me: User
     }
 
@@ -22,7 +22,7 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         users: () => users,
-        // Query with Parameters
+        // Query with Parameters console.log in server
         user:(root, args) => {
             console.log(root);
             console.log(args);
