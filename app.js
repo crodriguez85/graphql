@@ -9,19 +9,24 @@ const me = users[0];
 const typeDefs = gql`
     type Query {
         users: [User]
+        user(id: ID!): User
         me: User
     }
 
     type User {
         id: ID!
         name: String!
-
     }
 `;
 
 const resolvers = {
     Query: {
         users: () => users,
+        // Query with Parameters
+        user:(root, args) => {
+            console.log(root);
+            console.log(args);
+        },
         me: () => me
     }
 };
