@@ -25,7 +25,7 @@ const resolvers = {
         // Query with Parameters id
         user:(root, { id }) => {
             const user = users.filter(user => user.id === id);
-            console.log(user);
+            return user[0];
         },
         me: () => me
     }
