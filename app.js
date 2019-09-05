@@ -22,10 +22,10 @@ const typeDefs = gql`
 const resolvers = {
     Query: {
         users: () => users,
-        // Query with Parameters console.log in server
-        user:(root, args) => {
-            console.log(root);
-            console.log(args);
+        // Query with Parameters id
+        user:(root, { id }) => {
+            const user = users.filter(user => user.id === id);
+            console.log(user);
         },
         me: () => me
     }
