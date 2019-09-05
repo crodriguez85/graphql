@@ -13,17 +13,20 @@ let cars = [{
     id: 1,
     make: 'Volkswagen',
     model: 'GTI',
-    color: 'Red'
+    color: 'Red',
+    ownedBy: 1
 }, {
     id: 2,
     make: 'BMW',
     model: '120',
-    color: 'Black'
+    color: 'Black',
+    ownedBy: 1
 }, {
     id: 3,
     make: 'Mercedez',
     model: 'A200',
-    color: 'White'
+    color: 'White',
+    ownedBy: 3
 }]
 
 module.exports = {

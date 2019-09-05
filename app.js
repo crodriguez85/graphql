@@ -14,7 +14,7 @@ const typeDefs = gql`
         me: User
 
         cars: [Car]
-        car(id:Int!): Car
+        car(id: Int!): Car
     }
 
     type User {
@@ -23,9 +23,11 @@ const typeDefs = gql`
     }
 
     type Car {
+        id: ID!
         make: String!
         model: String!
         color: String!
+        owner: User!
     }
 `;
 
@@ -37,11 +39,16 @@ const resolvers = {
             const user = users.filter(user => user.id === id);
             return user[0];
         },
-        me: () => me,
         cars: () => cars,
         car:(root, { id }) => {
             const car = cars.filter(car => car.id === id);
             return car[0];
+        },
+        me: () => me,
+    },
+    Car: {
+        owner: root => {
+            console.log(root)
         }
     }
 };
