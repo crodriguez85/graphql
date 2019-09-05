@@ -9,6 +9,24 @@ let users = [{
     name: 'Steven'
 }]
 
+let cars = [{
+    id: 1,
+    make: 'Volkswagen',
+    model: 'GTI',
+    color: 'Red'
+}, {
+    id: 2,
+    make: 'BMW',
+    model: '120',
+    color: 'Black'
+}, {
+    id: 3,
+    make: 'Mercedez',
+    model: 'A200',
+    color: 'White'
+}]
+
 module.exports = {
-    users
+    users,
+    cars
 }

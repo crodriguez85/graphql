@@ -3,6 +3,7 @@ const app= express();
 const { ApolloServer, gql } = require('apollo-server-express');
 const port = 3000
 const users = require('./data').users;
+const cars = require('./data').cars;
 
 const me = users[0];
 
@@ -11,11 +12,20 @@ const typeDefs = gql`
         users: [User]
         user(id: Int!): User
         me: User
+
+        cars: [Car]
+        car(id:Int!): Car
     }
 
     type User {
         id: ID!
         name: String!
+    }
+
+    type Car {
+        make: String!
+        model: String!
+        color: String!
     }
 `;
 
@@ -27,7 +37,12 @@ const resolvers = {
             const user = users.filter(user => user.id === id);
             return user[0];
         },
-        me: () => me
+        me: () => me,
+        cars: () => cars,
+        car:(root, { id }) => {
+            const car = cars.filter(car => car.id === id);
+            return car[0];
+        }
     }
 };
 
