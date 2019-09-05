@@ -2,7 +2,7 @@ const express = require('express');
 const app= express();
 const { ApolloServer, gql } = require('apollo-server-express');
 const port = 3000
-const users = require('./data').users;
+let users = require('./data').users;
 const cars = require('./data').cars;
 
 const me = users[0];
@@ -15,6 +15,11 @@ const typeDefs = gql`
 
         cars: [Car]
         car(id: Int!): Car
+    }
+
+    type Mutation {
+        makeUser(id: Int!, name: String!): User
+        removeUser(id: Int!): Boolean
     }
 
     type User {
@@ -47,14 +52,44 @@ const resolvers = {
         },
         me: () => me,
     },
+    
     Car: {
         owner: root => users[root.ownedBy - 1]
     },
+
+    Mutation: {
+        makeUser: (root, { id, name }) => {
+            const user = {
+                id, 
+                name
+            };
+            users.push(user)
+            return user
+        },
+        removeUser: (root, { id }) => {
+            let found = false;
+            users = users.filter(user => {
+                if(user.id === id) {
+                    found = true 
+                } else {
+                    return user;
+                }
+            });
+            if (found) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+    },
+    
     User: {
         car: root => {
             return root.cars.map(carId => cars[carId - 1])
         }
     }
+
 };
 
 const server = new ApolloServer({
