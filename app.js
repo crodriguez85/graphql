@@ -1,6 +1,7 @@
 const express = require('express');
 const app= express();
 const { ApolloServer, gql } = require('apollo-server-express');
+const port = 3000
 
 const typeDefs = gql`
     type Query {
@@ -12,7 +13,7 @@ const typeDefs = gql`
     }
 `;
 
-const resolvers = gql`
+const resolvers = {
     Query: {
         me: () => {
             return {
@@ -20,7 +21,7 @@ const resolvers = gql`
             }
         }
     }
-`;
+};
 
 const server = new ApolloServer({
     typeDefs,
@@ -29,4 +30,4 @@ const server = new ApolloServer({
 
 server.applyMiddleware({ app });
 
-app.listen(3000, () => console.info('Apollo GraphQL server on port 3000') );
+app.listen(port, () => console.info(`Apollo GraphQL server on  localhost:${3000}/graphql`) );
