@@ -20,6 +20,7 @@ const typeDefs = gql`
     type User {
         id: ID!
         name: String!
+        car: [Car]
     }
 
     type Car {
@@ -48,6 +49,11 @@ const resolvers = {
     },
     Car: {
         owner: root => users[root.ownedBy - 1]
+    },
+    User: {
+        car: root => {
+            return root.cars.map(carId => cars[carId - 1])
+        }
     }
 };
 
