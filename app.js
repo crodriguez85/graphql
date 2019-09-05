@@ -47,9 +47,7 @@ const resolvers = {
         me: () => me,
     },
     Car: {
-        owner: root => {
-            console.log(root)
-        }
+        owner: root => users[root.ownedBy - 1]
     }
 };
 
