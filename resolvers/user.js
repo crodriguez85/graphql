@@ -34,8 +34,8 @@ const resolvers = {
         },
     },
     User: {
-        car: root => {
-            return root.cars.map(carId => cars[carId - 1])
+        car: (root, args, { models }) => {
+            return root.cars.map(carId => models.cars[carId - 1])
         }
     }
 };
