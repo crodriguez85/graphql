@@ -5,6 +5,11 @@ const user = (sequelize, DataTypes) => {
         }
     });
 
+    User.associate = models => {
+        //  One to many one user many cars
+        User.hasMany(models.Car, { onDelete: 'CASCADE'})
+    }
+
     return User;
 }
 
