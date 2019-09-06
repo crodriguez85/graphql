@@ -8,9 +8,12 @@ const car = (sequelize, DataTypes) => {
         },
         colour: {
             type: DataTypes.STRING
-        },
-
+        }
     });
+
+    Car.associate = models => {
+        Car.belongsTo(models.User);
+    };
 
     return Car;
 }
