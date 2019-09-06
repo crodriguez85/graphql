@@ -1,25 +1,25 @@
 const resolvers = {
     Query: {
-        users: (root, args, { models }) => users,
+        users: (root, args, { models }) => models.users,
         // Query with Parameters id
-        user:(root, { id }) => {
-            const user = users.filter(user => user.id === id);
+        user:(root, { id }, {models}) => {
+            const user = models.users.filter(user => user.id === id);
             return user[0];
         },
-        me: () => me,
+        me: (parent, args, {import 'module'}) => me,
     },
     Mutation: {
-        makeUser: (root, { id, name }) => {
+        makeUser: (root, { id, name }, {models}) => {
             const user = {
                 id, 
                 name
             };
-            users.push(user)
+            models.users.push(user)
             return user
         },
-        removeUser: (root, { id }) => {
+        removeUser: (root, { id }, {models}) => {
             let found = false;
-            users = users.filter(user => {
+            models.users = models.users.filter(user => {
                 if(user.id === id) {
                     found = true 
                 } else {
