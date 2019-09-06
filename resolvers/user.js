@@ -1,6 +1,6 @@
 const resolvers = {
     Query: {
-        users: (root, args, context) => users,
+        users: (root, args, { models }) => users,
         // Query with Parameters id
         user:(root, { id }) => {
             const user = users.filter(user => user.id === id);
