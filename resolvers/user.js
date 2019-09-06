@@ -6,7 +6,7 @@ const resolvers = {
             const user = models.users.filter(user => user.id === id);
             return user[0];
         },
-        me: (parent, args, {import 'module'}) => me,
+        me: (parent, args, {me}) => me,
     },
     Mutation: {
         makeUser: (root, { id, name }, {models}) => {
