@@ -1,9 +1,28 @@
 import React from 'react'
 import { Query } from 'react-apollo';
+import {USERS_QUERY} from '../queries';
 
 const User = () => {
     return ( 
-        null
+        <div>
+            <Query query={USERS_QUERY}>
+                {({data, loading}) => {
+                    if(loading) return <p>Loding...</p>
+                    return (
+                        <div>
+                            <ul>
+                                {data.users.map(user => (
+                                    <li
+                                        key={user.id}>
+                                        {user.name}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+                    )
+                }}
+            </Query>
+        </div>
      );
 }
  
