@@ -1,10 +1,10 @@
 const resolvers = {
     Query: {
         cars: (root, args, { models }) => {
-            models.Car.findAll();
+            return models.Car.findAll();
         },
         car:(root, { id }, { models }) => {
-            models.Car.findByPk(id);
+            return models.Car.findByPk(id);
         },
     },
     Mutation: {
