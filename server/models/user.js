@@ -1,3 +1,5 @@
+const bcrypt = require('bcrypt');
+
 const user = (sequelize, DataTypes) => {
     const User = sequelize.define('user', {
         name: {
@@ -18,10 +20,17 @@ const user = (sequelize, DataTypes) => {
         }
     });
 
+    User.prototype.hashPassword = async function() {
+        return await bcrypt.hash(this.password, 10);
+    }
+
     User.associate = models => {
         //  One to many one user many cars
         User.hasMany(models.Car, { onDelete: 'CASCADE'})
     }
+    User.beforeCreate(async user => {
+        user.password = await user.hashPassword(user.password)
+    });
 
     return User;
 }
