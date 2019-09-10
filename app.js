@@ -6,7 +6,7 @@ const port = 3000
 const models = require('./models');
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
-const me = models.users[0];
+// const me = models.users[0];
 
 // const me = users[0];
 
@@ -15,7 +15,7 @@ const server = new ApolloServer({
     resolvers,
     context: {
         models,
-        me
+        // me
 
     }
 });

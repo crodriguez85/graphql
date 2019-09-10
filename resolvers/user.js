@@ -1,41 +1,36 @@
 const resolvers = {
     Query: {
-        users: (root, args, { models }) => models.users,
+        users: (root, args, { models }) => {
+            return models.User.findAll();
+        },
         // Query with Parameters id
         user:(root, { id }, {models}) => {
-            const user = models.users.filter(user => user.id === id);
-            return user[0];
+            models.User.findByPk(id);
         },
-        me: (parent, args, {me}) => me,
+        // me: (parent, args, {me}) => me,
     },
     Mutation: {
-        makeUser: (root, { id, name }, {models}) => {
+        makeUser: (root, { name }, {models}) => {
             const user = {
-                id, 
                 name
             };
-            models.users.push(user)
-            return user
+           models.User.create(user);
         },
         removeUser: (root, { id }, {models}) => {
-            let found = false;
-            models.users = models.users.filter(user => {
-                if(user.id === id) {
-                    found = true 
-                } else {
-                    return user;
+            return models.User.destroy({
+                where: {
+                    id
                 }
             });
-            if (found) {
-                return true;
-            } else {
-                return false;
-            }
         },
     },
     User: {
         car: (root, args, { models }) => {
-            return root.cars.map(carId => models.cars[carId - 1])
+            return models.Car.findAll({
+                where: {
+                    userId: parent.id
+                }
+            })
         }
     }
 };

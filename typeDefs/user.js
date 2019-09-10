@@ -8,7 +8,7 @@ extend type Query {
 }
 
 extend type Mutation {
-    makeUser(id: Int!, name: String!): User
+    makeUser(name: String!): User
     removeUser(id: Int!): Boolean
 }
 
