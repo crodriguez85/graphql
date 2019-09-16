@@ -24,6 +24,10 @@ const user = (sequelize, DataTypes) => {
         return await bcrypt.hash(this.password, 10);
     }
 
+    User.prototype.validatePassword = async function(password) {
+        return await bcrypt.compare(password, this.password);
+    }
+
     User.associate = models => {
         //  One to many one user many cars
         User.hasMany(models.Car, { onDelete: 'CASCADE'})
