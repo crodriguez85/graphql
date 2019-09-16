@@ -12,12 +12,14 @@ extend type Mutation {
     removeUser(id: Int!): Boolean
     register(name: String!, username: String!, password: String!): Boolean!
     login(username: String!, password: String!): Token!
+    uploadImage(filename: String!) String!
 }
 
 type User {
     id: ID!
     name: String!
     username: String!
+    photo: String
     car: [Car]
 }
 
