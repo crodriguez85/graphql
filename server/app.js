@@ -25,12 +25,12 @@ const getLoggedInUser = req => {
 const server = new ApolloServer({
     typeDefs,
     resolvers,
-    context: {
+    context: ({req}) => ({
         models,
         secret: process.env.JWT_SECRET,
         me: getLoggedInUser(req)
 
-    }
+    })
 });
 
 server.applyMiddleware({ app });
