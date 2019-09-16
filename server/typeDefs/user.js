@@ -12,7 +12,8 @@ extend type Mutation {
     removeUser(id: Int!): Boolean
     register(name: String!, username: String!, password: String!): Boolean!
     login(username: String!, password: String!): Token!
-    uploadImage(filename: String!) String!
+    uploadImage(filename: String): String
+    
 }
 
 type User {
