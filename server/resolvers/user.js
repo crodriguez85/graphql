@@ -1,3 +1,10 @@
+const jwt = require('jsonwebtoken');
+
+const createToken = (user, secret, expiresIn) => {
+    const { id, name, username } = user;
+    return jwt.sign({ id, name, username}, secret, {expiresIn})
+}
+
 const resolvers = {
     Query: {
         users: (root, args, { models }) => {
@@ -40,12 +47,18 @@ const resolvers = {
                console.error(error)
            }
         },
-        login: async (root, { username, password}, { models }) => {
+        login: async (root, { username, password}, { models, secret }) => {
             const user = await models.User.findOne({ where: {username}});
             if(!user) {
                 throw new Error('User Not Find');
             }
-
+            const validPassword = await this.User.validPassword(password);
+            if(!validPassword) {
+                throw new Error('Password Incorrect');
+            }
+            return {
+                token: createToken(user, seccret, '30m')
+            }
         } 
         
     },
