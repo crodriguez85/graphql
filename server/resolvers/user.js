@@ -40,6 +40,13 @@ const resolvers = {
                console.error(error)
            }
         },
+        login: async (root, { username, password}, { models }) => {
+            const user = await models.User.findOne({ where: {username}});
+            if(!user) {
+                throw new Error('User Not Find');
+            }
+
+        } 
         
     },
     User: {
