@@ -10,7 +10,7 @@ extend type Query {
 extend type Mutation {
     makeUser(name: String!): User
     removeUser(id: Int!): Boolean
-    register(name: String, username: String!, password: String!): Boolean!
+    register(name: String!, username: String!, password: String!): Boolean!
 }
 
 type User {
