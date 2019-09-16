@@ -8,17 +8,27 @@ const cors = require('cors');
 const models = require('./models');
 const typeDefs = require('./typeDefs');
 const resolvers = require('./resolvers');
-// const me = models.users[0];
 
-// const me = users[0];
+const jwt = require('jsonwebtoken');
+
+const getLoggedInUser = req => {
+    const token = req.headers['x-auth-token'];
+    if (token) {
+        try{
+            return jwt.verify(token, process.env.JWT_SECRET)
+        } catch (error){
+            throw new Error('Session Expired');
+        }
+    }
+};
 
 const server = new ApolloServer({
     typeDefs,
     resolvers,
     context: {
         models,
-        // me
-        secret: process.env.JWT_SECRET
+        secret: process.env.JWT_SECRET,
+        me: getLoggedInUser(req)
 
     }
 });
