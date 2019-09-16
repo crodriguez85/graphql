@@ -52,12 +52,12 @@ const resolvers = {
             if(!user) {
                 throw new Error('User Not Find');
             }
-            const validPassword = await this.User.validPassword(password);
+            const validPassword = await user.validatePassword(password);
             if(!validPassword) {
                 throw new Error('Password Incorrect');
             }
             return {
-                token: createToken(user, seccret, '30m')
+                token: createToken(user, secret, '30m')
             }
         } 
         
